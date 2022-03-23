@@ -11,10 +11,10 @@ import (
 
 	"github.com/golang/glog"
 	anypb "github.com/golang/protobuf/ptypes/any"
-	"github.com/grpc-ecosystem/grpc-gateway/v2/internal/descriptor"
-	gen "github.com/grpc-ecosystem/grpc-gateway/v2/internal/generator"
-	openapi_options "github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2/options"
-	statuspb "google.golang.org/genproto/googleapis/rpc/status"
+	"github.com/Percona-Lab/grpc-gateway/v2/internal/descriptor"
+	gen "github.com/Percona-Lab/grpc-gateway/v2/internal/generator"
+	openapi_options "github.com/Percona-Lab/grpc-gateway/v2/protoc-gen-openapiv2/options"
+	gw_errors "github.com/Percona-Lab/grpc-gateway/v2/runtime/errors"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/descriptorpb"
 	"google.golang.org/protobuf/types/pluginpb"
@@ -240,7 +240,7 @@ func AddErrorDefs(reg *descriptor.Registry) error {
 	// load internal protos
 	any, _ := legacydescriptor.MessageDescriptorProto(&anypb.Any{})
 	any.SourceCodeInfo = new(descriptorpb.SourceCodeInfo)
-	status, _ := legacydescriptor.MessageDescriptorProto(&statuspb.Status{})
+	status, _ := legacydescriptor.MessageDescriptorProto(&gw_errors.Error{})
 	status.SourceCodeInfo = new(descriptorpb.SourceCodeInfo)
 	// TODO(johanbrandhorst): Use new conversion later when possible
 	// any := protodesc.ToFileDescriptorProto((&anypb.Any{}).ProtoReflect().Descriptor().ParentFile())

@@ -3,6 +3,7 @@ package runtime
 import (
 	"context"
 	"errors"
+	gw_errors "github.com/Percona-Lab/grpc-gateway/v2/runtime/errors"
 	"io"
 	"net/http"
 
@@ -112,9 +113,17 @@ func DefaultHTTPErrorHandler(ctx context.Context, mux *ServeMux, marshaler Marsh
 		w.Header().Set("WWW-Authenticate", s.Message())
 	}
 
-	buf, merr := marshaler.Marshal(pb)
+	body := &gw_errors.Error{
+		Error:   s.Message(),
+		Message: s.Message(),
+		Code:    int32(s.Code()),
+		Details: s.Proto().GetDetails(),
+	}
+
+	buf, merr := marshaler.Marshal(body)
+
 	if merr != nil {
-		grpclog.Infof("Failed to marshal error message %q: %v", s, merr)
+		grpclog.Infof("Failed to marshal error message %q: %v", body, merr)
 		w.WriteHeader(http.StatusInternalServerError)
 		if _, err := io.WriteString(w, fallback); err != nil {
 			grpclog.Infof("Failed to write response: %v", err)

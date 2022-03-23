@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "runtime/internal/examplepb/proto3.proto",
+    "title": "runtime/errors/errors.proto",
     "version": "version not set"
   },
   "consumes": [
@@ -31,7 +31,8 @@
         },
         "code": {
           "type": "integer",
-          "format": "int32"
+          "format": "int32",
+          "description": "This is to make the error more compatible with users that expect errors to be Status objects:\nhttps://github.com/grpc/grpc/blob/master/src/proto/grpc/status/status.proto\nIt should be the exact same message as the Error field."
         },
         "message": {
           "type": "string"
@@ -42,7 +43,8 @@
             "$ref": "#/definitions/protobufAny"
           }
         }
-      }
+      },
+      "description": "Error is the generic error returned from unary RPCs."
     }
   }
 }

@@ -3,7 +3,7 @@ package main
 import (
 	"testing"
 
-	"github.com/grpc-ecosystem/grpc-gateway/v2/internal/descriptor"
+	"github.com/Percona-Lab/grpc-gateway/v2/internal/descriptor"
 )
 
 func TestParseFlagsEmptyNoPanic(t *testing.T) {
