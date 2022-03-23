@@ -18,9 +18,9 @@ import (
 	"time"
 
 	"github.com/golang/glog"
-	"github.com/grpc-ecosystem/grpc-gateway/v2/internal/casing"
-	"github.com/grpc-ecosystem/grpc-gateway/v2/internal/descriptor"
-	openapi_options "github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2/options"
+	"github.com/Percona-Lab/grpc-gateway/v2/internal/casing"
+	"github.com/Percona-Lab/grpc-gateway/v2/internal/descriptor"
+	openapi_options "github.com/Percona-Lab/grpc-gateway/v2/protoc-gen-openapiv2/options"
 	"google.golang.org/genproto/googleapis/api/annotations"
 	"google.golang.org/genproto/googleapis/api/visibility"
 	"google.golang.org/protobuf/encoding/protojson"
@@ -1297,7 +1297,7 @@ func renderServices(services []*descriptor.Service, paths openapiPathsObject, re
 							},
 						},
 					}
-					statusDef, hasStatus := fullyQualifiedNameToOpenAPIName(".google.rpc.Status", reg)
+					statusDef, hasStatus := fullyQualifiedNameToOpenAPIName(".grpc.gateway.runtime.Error", reg)
 					if hasStatus {
 						props = append(props, keyVal{
 							Key: "error",
@@ -1328,7 +1328,7 @@ func renderServices(services []*descriptor.Service, paths openapiPathsObject, re
 					},
 				}
 				if !reg.GetDisableDefaultErrors() {
-					errDef, hasErrDef := fullyQualifiedNameToOpenAPIName(".google.rpc.Status", reg)
+					errDef, hasErrDef := fullyQualifiedNameToOpenAPIName(".grpc.gateway.runtime.Error", reg)
 					if hasErrDef {
 						// https://github.com/OAI/OpenAPI-Specification/blob/3.0.0/versions/2.0.md#responses-object
 						operationObject.Responses["default"] = openapiResponseObject{
@@ -1532,7 +1532,7 @@ func applyTemplate(p param) (*openapiSwaggerObject, error) {
 
 	if !p.reg.GetDisableDefaultErrors() {
 		// Add the error type to the message map
-		runtimeError, swgRef, err := lookupMsgAndOpenAPIName("google.rpc", "Status", p.reg)
+		runtimeError, swgRef, err := lookupMsgAndOpenAPIName(".grpc.gateway.runtime", "Error", p.reg)
 		if err == nil {
 			messages[swgRef] = runtimeError
 		} else {
