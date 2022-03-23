@@ -7,10 +7,10 @@ import (
 	"strings"
 	"text/template"
 
-	"github.com/golang/glog"
 	"github.com/Percona-Lab/grpc-gateway/v2/internal/casing"
 	"github.com/Percona-Lab/grpc-gateway/v2/internal/descriptor"
 	"github.com/Percona-Lab/grpc-gateway/v2/utilities"
+	"github.com/golang/glog"
 )
 
 type param struct {
