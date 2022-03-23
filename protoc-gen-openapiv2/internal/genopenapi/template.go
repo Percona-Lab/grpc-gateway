@@ -17,10 +17,10 @@ import (
 	"text/template"
 	"time"
 
-	"github.com/golang/glog"
 	"github.com/Percona-Lab/grpc-gateway/v2/internal/casing"
 	"github.com/Percona-Lab/grpc-gateway/v2/internal/descriptor"
 	openapi_options "github.com/Percona-Lab/grpc-gateway/v2/protoc-gen-openapiv2/options"
+	"github.com/golang/glog"
 	"google.golang.org/genproto/googleapis/api/annotations"
 	"google.golang.org/genproto/googleapis/api/visibility"
 	"google.golang.org/protobuf/encoding/protojson"
